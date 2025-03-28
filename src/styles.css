@@ -1,2 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@theme {
+  --muted-foreground: 240 3.8% 46.1%;
+  --color-muted-foreground: hsl(var(--muted-foreground));
+}
+* {
+  border-color: #e5e7eb;
+}
