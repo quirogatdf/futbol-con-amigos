@@ -1,13 +1,16 @@
 <header
-  class="sticky top-0 z-10 border-b border-b-gray-300 bg-background/95 backdrop-blur flex flex-row justify-center items-center"
+  class="sticky top-0 z-10 border-b border-b-gray-300 bg-background/95 backdrop-blur flex flex-col md:flex-row justify-center items-center"
 >
   <div
-    class="container flex h-16 items-center justify-between p-4 w-full max-w-6xl"
+    class="container flex flex-col md:flex-row md:h-16 items-center justify-between p-4 w-full max-w-6xl"
   >
     <div class="flex items-center gap-2">
+      <lucide-icon [img]="Trophy"></lucide-icon>
       <h1>Fútbol con Amigos</h1>
     </div>
-    <nav class="flex items-center gap-6 text-sm font-medium">
+    <nav
+      class="flex flex-col md:flex-row items-center gap-6 text-sm font-medium"
+    >
       <a
         href="#"
         class="transitions-colors hover:text-foreground/80 text-foreground"

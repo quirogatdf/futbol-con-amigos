@@ -5,10 +5,21 @@
   </section>
 
   <div
-    class="h-10 items-center justify-center rounded-md grid w-full grid-cols-3 bg-gray-200/80"
+    class="items-center justify-center rounded-md grid w-full grid-cols-3 bg-gray-200/80"
   >
-    <button>Jugadores</button>
-    <button>Equipos</button>
-    <button>MVP</button>
+    <div class="flex flex-row gap-2 p-4">
+      <lucide-angular [img]="Users"></lucide-angular>
+      <button>Jugadores</button>
+    </div>
+
+    <div class="flex flex-row gap-2 p-4">
+      <lucide-angular [img]="Medal"></lucide-angular>
+      <button>Equipos</button>
+    </div>
+    <div class="flex flex-row gap-2 p-4">
+      <lucide-angular [img]="Star"></lucide-angular>
+      <button>MVP</button>
+    </div>
   </div>
+  <div class="h2 font-bold text-4xl">En construcción</div>
 </main>
