@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TabItem } from '../../../core/tab-item.model';
 import { LucideAngularModule, Medal, Star, Users } from 'lucide-angular';
 @Component({
@@ -14,8 +14,10 @@ export class TabsComponent {
   readonly Users = Users;
   @Input() tabs: TabItem[] = [];
   @Input() selectedTab: string = 'players';
+  @Output() selectedTabChange = new EventEmitter<string>();
 
   selectTab(value: string): void {
     this.selectedTab = value;
+    this.selectedTabChange.emit(value);
   }
 }

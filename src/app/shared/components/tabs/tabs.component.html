@@ -4,7 +4,7 @@
       type="button"
       class="rounded-md cursor-pointer bg-transparent border-transparent text-muted-foreground flex flex-row items-center justify-center gap-2 p-2"
       (click)="selectTab(tab.value)"
-      [class.active]="selectedTab == tab.value"
+      [class.active]="selectedTab === tab.value"
     >
       <span class="inline-flex">
         @if (tab.icon === "Users") {
