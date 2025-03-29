@@ -1,26 +1,9 @@
-<main class="flex-1 h-dvh w-full max-w-6xl flex flex-col m-auto">
+<main class="flex-1 h-dvh w-full max-w-6xl flex flex-col m-auto px-2">
   <section class="container py-8">
     <h2 class="text-3xl font-bold">Liga de amigos 2025</h2>
     <p>Estadísticas actualizadas de nuestra liga de fútbol de los sábados</p>
   </section>
-
-  <div
-    class="items-center justify-center rounded-md grid w-full grid-cols-3 bg-gray-200/80"
-  >
-    <div class="flex flex-row gap-2 p-4">
-      <lucide-angular [img]="Users"></lucide-angular>
-      <button>Jugadores</button>
-    </div>
-
-    <div class="flex flex-row gap-2 p-4">
-      <lucide-angular [img]="Medal"></lucide-angular>
-      <button>Equipos</button>
-    </div>
-    <div class="flex flex-row gap-2 p-4">
-      <lucide-angular [img]="Star"></lucide-angular>
-      <button>MVP</button>
-    </div>
-  </div>
+  <app-tabs [tabs]="tabItems()"></app-tabs>
   <div class="rounded-md border mt-6">
     <div class="card flex flex-col space-y-1.5 p-6">
       <h3 class="card-title text-2xl font-semibold leading-none tracking-tight">
@@ -70,6 +53,13 @@
                 <td class="p-4 align-middle">
                   Rojas Peralta Oscar Alberto | Chan
                 </td>
+                <td class="p-4 text-center align-middle">0</td>
+                <td class="p-4 text-center align-middle">0</td>
+                <td class="p-4 text-center align-middle">0</td>
+              </tr>
+              <tr class="border-b px-2">
+                <td class="p-4 text-center align-middle">5</td>
+                <td class="p-4 align-middle">Quiroga Paulino | Loco</td>
                 <td class="p-4 text-center align-middle">0</td>
                 <td class="p-4 text-center align-middle">0</td>
                 <td class="p-4 text-center align-middle">0</td>

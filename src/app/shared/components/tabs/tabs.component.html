@@ -1,0 +1,21 @@
+<div class="rounded-md border-b grid grid-cols-3 w-full bg-gray-200/50 p-1">
+  @for (tab of tabs; track tab.value) {
+    <button
+      type="button"
+      class="rounded-md cursor-pointer bg-transparent border-transparent text-muted-foreground flex flex-row items-center justify-center gap-2 p-2"
+      (click)="selectTab(tab.value)"
+      [class.active]="selectedTab == tab.value"
+    >
+      <span class="inline-flex">
+        @if (tab.icon === "Users") {
+          <lucide-angular [img]="Users"></lucide-angular>
+        } @else if (tab.icon === "Medal") {
+          <lucide-angular [img]="Medal"></lucide-angular>
+        } @else if (tab.icon === "Star") {
+          <lucide-angular [img]="Star"></lucide-angular>
+        }
+      </span>
+      <span class="hidden sm:inline"> {{ tab.label }} </span>
+    </button>
+  }
+</div>
