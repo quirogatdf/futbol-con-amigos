@@ -7,3 +7,25 @@
 * {
   border-color: #e5e7eb;
 }
+
+.bg-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100dvw;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left 15%;
+  background-image: url("/background.png");
+  opacity: 0.5;
+  z-index: 0;
+}
+body {
+  position: relative;
+}
+.content {
+  height: 100%;
+  position: relative;
+  z-index: 99;
+}

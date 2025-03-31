@@ -10,21 +10,24 @@ export class TeamsComponent implements OnInit {
     {
       id: 1,
       name: 'Equipo Negro',
-      class: 'w-6 h-6 rounded-full border-4 !border-gray-400 bg-black',
+      class:
+        'rounded-full w-6 h-6 aspect-square border-4 !border-gray-400 bg-black',
       won: 7,
       drawn: 1,
     },
     {
       id: 2,
       name: 'Equipo Verde',
-      class: 'w-6 h-6 rounded-full border-4 !border-green-200 bg-green-500',
+      class:
+        'rounded-full w-6 h-6 aspect-square border-4 !border-green-200 bg-green-500',
       won: 6,
       drawn: 2,
     },
     {
       id: 2,
       name: 'Equipo Blanco',
-      class: 'w-6 h-6 rounded-full border-4 !border-gray-100 bg-white',
+      class:
+        'rounded-full w-6 h-6 aspect-square border-4 !border-gray-100 bg-white',
       won: 7,
       drawn: 3,
     },
