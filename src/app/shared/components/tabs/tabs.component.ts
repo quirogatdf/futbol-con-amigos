@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TabItem } from '../../../core/tab-item.model';
-import { LucideAngularModule, Medal, Star, Users } from 'lucide-angular';
+import { LucideAngularModule, Medal, Star, Users, Cake } from 'lucide-angular';
 @Component({
   selector: 'app-tabs',
   standalone: true,
@@ -12,6 +12,7 @@ export class TabsComponent {
   readonly Star = Star;
   readonly Medal = Medal;
   readonly Users = Users;
+  readonly Cake = Cake;
   @Input() tabs: TabItem[] = [];
   @Input() selectedTab: string = 'players';
   @Output() selectedTabChange = new EventEmitter<string>();

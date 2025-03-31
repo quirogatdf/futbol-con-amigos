@@ -1,4 +1,4 @@
-<div class="rounded-md border-b grid grid-cols-3 w-full bg-gray-200/50 p-1">
+<div class="rounded-md border-b grid grid-cols-4 w-full bg-gray-200/50 p-1">
   @for (tab of tabs; track tab.value) {
     <button
       type="button"
@@ -13,6 +13,8 @@
           <lucide-angular [img]="Medal"></lucide-angular>
         } @else if (tab.icon === "Star") {
           <lucide-angular [img]="Star"></lucide-angular>
+        } @else if (tab.icon === "Cake") {
+          <lucide-angular [img]="Cake"></lucide-angular>
         }
       </span>
       <span class="hidden sm:inline"> {{ tab.label }} </span>
