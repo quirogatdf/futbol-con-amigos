@@ -34,50 +34,19 @@
                 </tr>
               </thead>
               <tbody class="[&_tr:last-child]:border-0">
-                <tr class="border-b px-2">
-                  <td class="p-4 text-center align-middle">1</td>
-                  <td class="p-4 align-middle">Quiroga Matias</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                </tr>
-                <tr class="border-b px-2">
-                  <td class="p-4 text-center align-middle">2</td>
-                  <td class="p-4 align-middle">Cabana Sergio | Checho</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                </tr>
-                <tr class="border-b px-2">
-                  <td class="p-4 text-center align-middle">3</td>
-                  <td class="p-4 align-middle">Vera Walter | De bruyne</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                </tr>
-                <tr class="border-b px-2">
-                  <td class="p-4 text-center align-middle">4</td>
-                  <td class="p-4 align-middle">
-                    Rojas Peralta Oscar Alberto | Chan
-                  </td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                </tr>
-                <tr class="border-b px-2">
-                  <td class="p-4 text-center align-middle">5</td>
-                  <td class="p-4 align-middle">Quiroga Paulino | Loco</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                </tr>
-                <tr class="border-b px-2">
-                  <td class="p-4 text-center align-middle">6</td>
-                  <td class="p-4 align-middle">Quiroga Damian | Poly</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                  <td class="p-4 text-center align-middle">0</td>
-                </tr>
+                @for (player of jugadores; track player.numero_documento) {
+                  <tr class="border-b px-2">
+                    <td class="p-4 text-center align-middle">
+                      {{ $index + 1 }}
+                    </td>
+                    <td class="p-4 align-middle">
+                      {{ player.apellido + " " + " " + player.nombre }}
+                    </td>
+                    <td class="p-4 text-center align-middle">0</td>
+                    <td class="p-4 text-center align-middle">0</td>
+                    <td class="p-4 text-center align-middle">0</td>
+                  </tr>
+                }
               </tbody>
             </table>
           </div>
