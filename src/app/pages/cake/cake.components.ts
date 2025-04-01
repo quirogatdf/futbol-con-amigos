@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LucideAngularModule, Cake } from 'lucide-angular';
+import { LucideAngularModule, Cake, Calendar } from 'lucide-angular';
 @Component({
   selector: 'app-cake',
   standalone: true,
@@ -8,4 +8,5 @@ import { LucideAngularModule, Cake } from 'lucide-angular';
 })
 export class CakeComponent {
   readonly Cake = Cake;
+  readonly Calendar = Calendar;
 }
