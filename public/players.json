@@ -103,5 +103,33 @@
     "nombre": "Efrainf",
     "apodo": "Dj efra",
     "fecha_nacimiento": "3/06/1994"
+  },
+  {
+    "numero_documento": 32649809,
+    "apellido": "Fonseca ",
+    "nombre": "Ariel",
+    "apodo": "Fonse",
+    "fecha_nacimiento": "15/08/1986"
+  },
+  {
+    "numero_documento": 39004170,
+    "apellido": "Figueroa ",
+    "nombre": "Martin ",
+    "apodo": "",
+    "fecha_nacimiento": "20/04/1995"
+  },
+  {
+    "numero_documento": 25634662,
+    "apellido": "Ruiz",
+    "nombre": "Oscar Alfredo",
+    "apodo": "Bufa",
+    "fecha_nacimiento": "11/01/2025"
+  },
+  {
+    "numero_documento": 38088834,
+    "apellido": "Moraga",
+    "nombre": "Nicolás",
+    "apodo": "Nico",
+    "fecha_nacimiento": "20/02/1995"
   }
 ]
