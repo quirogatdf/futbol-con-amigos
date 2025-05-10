@@ -12,7 +12,7 @@ export class TeamsComponent implements OnInit {
       name: 'Equipo Negro',
       class:
         'rounded-full w-6 h-6 aspect-square border-4 !border-gray-400 bg-black',
-      won: 7,
+      won: 7 + 7 + 9,
       drawn: 1,
     },
     {
@@ -20,7 +20,7 @@ export class TeamsComponent implements OnInit {
       name: 'Equipo Verde',
       class:
         'rounded-full w-6 h-6 aspect-square border-4 !border-green-200 bg-green-500',
-      won: 6,
+      won: 6 + 2 + 13,
       drawn: 2,
     },
     {
@@ -28,7 +28,7 @@ export class TeamsComponent implements OnInit {
       name: 'Equipo Blanco',
       class:
         'rounded-full w-6 h-6 aspect-square border-4 !border-gray-100 bg-white',
-      won: 7,
+      won: 7 + 1 + 7,
       drawn: 3,
     },
   ];
