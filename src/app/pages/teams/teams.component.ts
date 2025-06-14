@@ -12,24 +12,44 @@ export class TeamsComponent implements OnInit {
       name: 'Equipo Negro',
       class:
         'rounded-full w-6 h-6 aspect-square border-4 !border-gray-400 bg-black',
-      won: 7 + 7 + 9,
-      drawn: 1,
+      won:
+        7 +
+        7 +
+        9 +
+        5 + //10-05
+        5 + //17-05
+        5 + //24-05
+        2, //01-06
+      drawn: 1 + 1, //10-05
     },
     {
       id: 2,
       name: 'Equipo Verde',
       class:
         'rounded-full w-6 h-6 aspect-square border-4 !border-green-200 bg-green-500',
-      won: 6 + 2 + 13,
-      drawn: 2,
+      won:
+        6 +
+        2 +
+        13 + //26-04
+        4 + //10-05
+        3 + //17-05
+        9 + //24-05
+        0, //01-06
+      drawn: 2 + 5, //10-05
     },
     {
       id: 2,
       name: 'Equipo Blanco',
       class:
         'rounded-full w-6 h-6 aspect-square border-4 !border-gray-100 bg-white',
-      won: 7 + 1 + 7,
-      drawn: 3,
+      won:
+        7 +
+        1 +
+        7 +
+        4 + //10-05
+        9 + //17-05
+        3, //24-05
+      drawn: 3 + 4, //10-05
     },
   ];
 
