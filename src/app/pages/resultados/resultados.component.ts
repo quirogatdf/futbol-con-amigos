@@ -26,8 +26,8 @@ export class ResultadosComponent implements OnInit {
 
   // Calendar state
   calendarOpen = signal(false);
-  viewYear = signal(new Date().getFullYear());
-  viewMonth = signal(new Date().getMonth());
+  viewYear = signal(2026);
+  viewMonth = signal(0);
 
   counters = signal({
     black: 0,
