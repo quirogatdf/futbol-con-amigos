@@ -30,9 +30,13 @@ export class ResultadosComponent implements OnInit {
     white: 0,
   });
 
+  private readonly MESES = [
+    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
+  ];
+
   getMonthName(): string {
-    const d = new Date(this.viewYear(), this.viewMonth());
-    return d.toLocaleDateString('es-AR', { month: 'long', year: 'numeric' });
+    return `${this.MESES[this.viewMonth()]} ${this.viewYear()}`;
   }
 
   getCalendarDays(): (number | null)[] {
@@ -169,8 +173,9 @@ export class ResultadosComponent implements OnInit {
 
   formatDate(): string {
     if (!this.selectedDate()) return '';
-    const [year, month, day] = this.selectedDate().split('-');
-    return `${day}/${month}/${year}`;
+    const parts = this.selectedDate().split('-');
+    if (parts.length !== 3) return '';
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
   }
 
   enviarWhatsApp(): void {
