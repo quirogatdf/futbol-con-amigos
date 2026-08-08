@@ -1,4 +1,5 @@
 import { Component, signal, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 const STORAGE_KEY = 'resultados_data';
 const TTL_MS = 24 * 60 * 60 * 1000;
@@ -9,46 +10,19 @@ interface StoredData {
   savedAt: number;
 }
 
-const MESES = [
-  'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-  'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
-];
-
 @Component({
   selector: 'app-resultados',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './resultados.component.html',
 })
 export class ResultadosComponent implements OnInit {
   activeView = signal<'cargar' | 'historial'>('cargar');
-
   selectedDate = signal('');
-
-  // Calendar state
   calendarOpen = signal(false);
   viewYear = signal(2026);
   viewMonth = signal(0);
-
-  counters = signal({
-    black: 0,
-    green: 0,
-    white: 0,
-  });
-
-  getMonthName(): string {
-    return `${MESES[this.viewMonth()]} ${this.viewYear()}`;
-  }
-
-  getCalendarDays(): (number | null)[] {
-    const year = this.viewYear();
-    const month = this.viewMonth();
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const days: (number | null)[] = [];
-    for (let i = 0; i < firstDay; i++) days.push(null);
-    for (let i = 1; i <= daysInMonth; i++) days.push(i);
-    return days;
-  }
+  counters = signal({ black: 0, green: 0, white: 0 });
 
   ngOnInit(): void {
     if (typeof window === 'undefined') return;
@@ -57,34 +31,41 @@ export class ResultadosComponent implements OnInit {
     if (raw) {
       try {
         const stored: StoredData = JSON.parse(raw);
-        if (Date.now() - stored.savedAt <= TTL_MS) {
+        if (stored.date && stored.counters && Date.now() - stored.savedAt <= TTL_MS) {
           this.selectedDate.set(stored.date);
           this.counters.set(stored.counters);
-          const [y, m] = stored.date.split('-').map(Number);
-          this.viewYear.set(y);
-          this.viewMonth.set(m - 1);
-          return;
+          const parts = stored.date.split('-');
+          if (parts.length === 3) {
+            this.viewYear.set(parseInt(parts[0], 10));
+            this.viewMonth.set(parseInt(parts[1], 10) - 1);
+          } else {
+            this.setToday();
+          }
+        } else {
+          localStorage.removeItem(STORAGE_KEY);
+          this.setToday();
         }
-        localStorage.removeItem(STORAGE_KEY);
       } catch {
         localStorage.removeItem(STORAGE_KEY);
+        this.setToday();
       }
+    } else {
+      this.setToday();
     }
-
-    this.setToday();
   }
 
   setToday(): void {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    this.selectedDate.set(`${yyyy}-${mm}-${dd}`);
-    this.viewYear.set(yyyy);
-    this.viewMonth.set(today.getMonth());
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = now.getMonth();
+    const mm = String(m + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    this.selectedDate.set(`${y}-${mm}-${dd}`);
+    this.viewYear.set(y);
+    this.viewMonth.set(m);
   }
 
-  private persist(): void {
+  persist(): void {
     if (typeof window === 'undefined') return;
     const data: StoredData = {
       date: this.selectedDate(),
@@ -128,6 +109,24 @@ export class ResultadosComponent implements OnInit {
     this.persist();
   }
 
+  getMonthLabel(): string {
+    const m = this.viewMonth();
+    const y = this.viewYear();
+    const names = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    return names[m] + ' ' + y;
+  }
+
+  getDays(): (number | null)[] {
+    const y = this.viewYear();
+    const m = this.viewMonth();
+    const first = new Date(y, m, 1).getDay();
+    const total = new Date(y, m + 1, 0).getDate();
+    const result: (number | null)[] = [];
+    for (let i = 0; i < first; i++) result.push(null);
+    for (let i = 1; i <= total; i++) result.push(i);
+    return result;
+  }
+
   isSelected(day: number): boolean {
     const mm = String(this.viewMonth() + 1).padStart(2, '0');
     const dd = String(day).padStart(2, '0');
@@ -135,47 +134,37 @@ export class ResultadosComponent implements OnInit {
   }
 
   isToday(day: number): boolean {
-    const today = new Date();
-    return (
-      day === today.getDate() &&
-      this.viewMonth() === today.getMonth() &&
-      this.viewYear() === today.getFullYear()
-    );
+    const now = new Date();
+    return day === now.getDate() && this.viewMonth() === now.getMonth() && this.viewYear() === now.getFullYear();
+  }
+
+  incrementar(col: 'black' | 'green' | 'white'): void {
+    this.counters.update((c) => ({ ...c, [col]: c[col] + 1 }));
+    this.persist();
+  }
+
+  decrementar(col: 'black' | 'green' | 'white'): void {
+    this.counters.update((c) => ({ ...c, [col]: Math.max(0, c[col] - 1) }));
+    this.persist();
   }
 
   selectView(view: 'cargar' | 'historial'): void {
     this.activeView.set(view);
   }
 
-  incrementar(column: 'black' | 'green' | 'white'): void {
-    this.counters.update((c) => ({
-      ...c,
-      [column]: c[column] + 1,
-    }));
-    this.persist();
+  getTally(col: 'black' | 'green' | 'white'): string {
+    return Array(this.counters()[col]).fill('⚽').join(' ');
   }
 
-  decrementar(column: 'black' | 'green' | 'white'): void {
-    this.counters.update((c) => ({
-      ...c,
-      [column]: Math.max(0, c[column] - 1),
-    }));
-    this.persist();
+  total(): number {
+    return this.counters().black + this.counters().green + this.counters().white;
   }
-
-  getTally(column: 'black' | 'green' | 'white'): string {
-    const count = this.counters()[column];
-    return Array(count).fill('⚽').join(' ');
-  }
-
-  total = () =>
-    this.counters().black + this.counters().green + this.counters().white;
 
   formatDate(): string {
-    if (!this.selectedDate()) return '';
-    const parts = this.selectedDate().split('-');
-    if (parts.length !== 3) return '';
-    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    const d = this.selectedDate();
+    if (!d) return '';
+    const p = d.split('-');
+    return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : '';
   }
 
   enviarWhatsApp(): void {
@@ -183,17 +172,14 @@ export class ResultadosComponent implements OnInit {
       alert('Seleccioná una fecha antes de enviar');
       return;
     }
-
     const fecha = this.formatDate();
-    const { black, green, white } = this.counters();
+    const c = this.counters();
     const msg =
       `📊 *Resultados - ${fecha}*\n\n` +
-      `⚫ Equipo Negro: *${black}*\n` +
-      `🟢 Equipo Verde: *${green}*\n` +
-      `⚪ Equipo Blanco: *${white}*\n\n` +
+      `⚫ Equipo Negro: *${c.black}*\n` +
+      `🟢 Equipo Verde: *${c.green}*\n` +
+      `⚪ Equipo Blanco: *${c.white}*\n\n` +
       `🔢 Partidos Totales: *${this.total()}*`;
-
-    const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-    window.open(url, '_blank');
+    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
   }
 }
