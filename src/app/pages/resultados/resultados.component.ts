@@ -1,4 +1,4 @@
-import { Component, signal, OnInit, computed } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 
 const STORAGE_KEY = 'resultados_data';
 const TTL_MS = 24 * 60 * 60 * 1000;
@@ -30,12 +30,12 @@ export class ResultadosComponent implements OnInit {
     white: 0,
   });
 
-  monthName = computed(() => {
+  getMonthName(): string {
     const d = new Date(this.viewYear(), this.viewMonth());
     return d.toLocaleDateString('es-AR', { month: 'long', year: 'numeric' });
-  });
+  }
 
-  calendarDays = computed(() => {
+  getCalendarDays(): (number | null)[] {
     const year = this.viewYear();
     const month = this.viewMonth();
     const firstDay = new Date(year, month, 1).getDay();
@@ -44,7 +44,7 @@ export class ResultadosComponent implements OnInit {
     for (let i = 0; i < firstDay; i++) days.push(null);
     for (let i = 1; i <= daysInMonth; i++) days.push(i);
     return days;
-  });
+  }
 
   ngOnInit(): void {
     if (typeof window === 'undefined') return;
