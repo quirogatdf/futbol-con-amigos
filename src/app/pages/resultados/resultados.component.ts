@@ -115,7 +115,7 @@ export class ResultadosComponent implements OnInit {
       `⚫ Equipo Negro: *${black}*\n` +
       `🟢 Equipo Verde: *${green}*\n` +
       `⚪ Equipo Blanco: *${white}*\n\n` +
-      `🔢 Total: *${this.total()}*`;
+      `🔢 Partidos Totales: *${this.total()}*`;
 
     const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
