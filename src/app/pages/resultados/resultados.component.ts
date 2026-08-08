@@ -13,6 +13,15 @@ interface StoredData {
   selector: 'app-resultados',
   standalone: true,
   templateUrl: './resultados.component.html',
+  styles: [`
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+    input[type="date"] {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+  `],
 })
 export class ResultadosComponent implements OnInit {
   activeView = signal<'cargar' | 'historial'>('cargar');
