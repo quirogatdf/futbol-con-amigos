@@ -14,7 +14,8 @@ interface StoredData {
   standalone: true,
   templateUrl: './resultados.component.html',
   styles: [`
-    input[type="date"]::-webkit-calendar-picker-indicator {
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="date"]::-moz-calendar-picker-indicator {
       display: none;
     }
     input[type="date"] {
@@ -79,6 +80,11 @@ export class ResultadosComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     this.selectedDate.set(input.value);
     this.persist();
+  }
+
+  abrirCalendario(): void {
+    const input = document.getElementById('fecha') as HTMLInputElement | null;
+    input?.showPicker();
   }
 
   incrementar(column: 'black' | 'green' | 'white'): void {
