@@ -29,19 +29,26 @@ export class ResultadosComponent implements OnInit {
     if (typeof window === 'undefined') return;
 
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return;
-
-    try {
-      const stored: StoredData = JSON.parse(raw);
-      if (Date.now() - stored.savedAt > TTL_MS) {
+    if (raw) {
+      try {
+        const stored: StoredData = JSON.parse(raw);
+        if (Date.now() - stored.savedAt <= TTL_MS) {
+          this.selectedDate.set(stored.date);
+          this.counters.set(stored.counters);
+          return;
+        }
         localStorage.removeItem(STORAGE_KEY);
-        return;
+      } catch {
+        localStorage.removeItem(STORAGE_KEY);
       }
-      this.selectedDate.set(stored.date);
-      this.counters.set(stored.counters);
-    } catch {
-      localStorage.removeItem(STORAGE_KEY);
     }
+
+    // Default: hoy
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    this.selectedDate.set(`${yyyy}-${mm}-${dd}`);
   }
 
   private persist(): void {
