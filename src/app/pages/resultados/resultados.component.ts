@@ -9,6 +9,11 @@ interface StoredData {
   savedAt: number;
 }
 
+const MESES = [
+  'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+  'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
+];
+
 @Component({
   selector: 'app-resultados',
   standalone: true,
@@ -30,13 +35,8 @@ export class ResultadosComponent implements OnInit {
     white: 0,
   });
 
-  private readonly MESES = [
-    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
-  ];
-
   getMonthName(): string {
-    return `${this.MESES[this.viewMonth()]} ${this.viewYear()}`;
+    return `${MESES[this.viewMonth()]} ${this.viewYear()}`;
   }
 
   getCalendarDays(): (number | null)[] {
