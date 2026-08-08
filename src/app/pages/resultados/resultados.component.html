@@ -45,13 +45,13 @@
         <!-- Selector de fecha -->
         <div class="mb-6">
           <label for="fecha" class="block text-sm font-medium mb-2">Fecha</label>
-          <div class="relative w-full max-w-xs">
+          <div class="relative w-full">
             <input
               type="date"
               id="fecha"
               [value]="selectedDate()"
               (change)="onDateChange($event)"
-              class="h-10 w-full rounded-md border border-input bg-background pl-3 pr-10 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              class="h-10 w-full min-w-0 rounded-md border border-input bg-background pl-3 pr-10 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
