@@ -1,36 +1,39 @@
-<header
-  class="posit top-0 z-10 border-b border-b-gray-300 bg-background/95 backdrop-blur flex flex-col md:flex-row justify-center items-center"
->
-  <div
-    class="container flex flex-col md:flex-row md:h-16 items-center justify-between p-4 w-full"
-  >
-    <div class="flex items-center gap-2">
+<header class="sticky top-0 z-50 border-b border-gray-300 bg-background/95 backdrop-blur">
+  <div class="container flex items-center justify-between h-14 px-4">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2">
       <lucide-icon [img]="Trophy"></lucide-icon>
-      <h1>Fútbol con Amigos</h1>
-    </div>
-    <nav
-      class="flex flex-col md:flex-row items-center gap-6 text-sm font-medium"
-    >
-      <a
-        href="/"
-        class="transitions-colors hover:text-foreground/80 text-foreground"
-        >Inicio</a
-      >
-      <a
-        href="#"
-        class="transitions-colors hover:text-foreground/80 text-foreground"
-        >Calendario</a
-      >
-      <a
-        routerLink="/resultados"
-        class="transitions-colors hover:text-foreground/80 text-foreground"
-        >Resultados</a
-      >
-      <a
-        routerLink="/galeria"
-        class="transitions-colors hover:text-foreground/80 text-foreground"
-        >Galería</a
-      >
+      <h1 class="text-sm font-bold">Fútbol con Amigos</h1>
+    </a>
+
+    <!-- Nav desktop -->
+    <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+      <a href="/" class="transition-colors hover:text-foreground/80 text-foreground">Inicio</a>
+      <a href="#" class="transition-colors hover:text-foreground/80 text-foreground">Calendario</a>
+      <a routerLink="/resultados" class="transition-colors hover:text-foreground/80 text-foreground" (click)="closeMenu()">Resultados</a>
+      <a routerLink="/galeria" class="transition-colors hover:text-foreground/80 text-foreground" (click)="closeMenu()">Galería</a>
     </nav>
+
+    <!-- Hamburger mobile -->
+    <button
+      (click)="toggleMenu()"
+      class="md:hidden p-2 rounded-md hover:bg-accent transition-colors cursor-pointer"
+    >
+      @if (menuOpen()) {
+        <lucide-icon [img]="X" class="w-5 h-5"></lucide-icon>
+      } @else {
+        <lucide-icon [img]="Menu" class="w-5 h-5"></lucide-icon>
+      }
+    </button>
   </div>
+
+  <!-- Menu mobile dropdown -->
+  @if (menuOpen()) {
+    <nav class="md:hidden border-t bg-background px-4 py-3 flex flex-col gap-3 text-sm font-medium">
+      <a href="/" class="py-2 transition-colors hover:text-foreground/80 text-foreground" (click)="closeMenu()">Inicio</a>
+      <a href="#" class="py-2 transition-colors hover:text-foreground/80 text-foreground" (click)="closeMenu()">Calendario</a>
+      <a routerLink="/resultados" class="py-2 transition-colors hover:text-foreground/80 text-foreground" (click)="closeMenu()">Resultados</a>
+      <a routerLink="/galeria" class="py-2 transition-colors hover:text-foreground/80 text-foreground" (click)="closeMenu()">Galería</a>
+    </nav>
+  }
 </header>

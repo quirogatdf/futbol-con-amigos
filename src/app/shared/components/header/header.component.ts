@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LucideAngularModule, Trophy } from 'lucide-angular';
+import { LucideAngularModule, Trophy, Menu, X } from 'lucide-angular';
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -9,4 +10,15 @@ import { LucideAngularModule, Trophy } from 'lucide-angular';
 })
 export class HeaderComponent {
   readonly Trophy = Trophy;
+  readonly Menu = Menu;
+  readonly X = X;
+  menuOpen = signal(false);
+
+  toggleMenu(): void {
+    this.menuOpen.update((v) => !v);
+  }
+
+  closeMenu(): void {
+    this.menuOpen.set(false);
+  }
 }
