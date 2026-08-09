@@ -1,4 +1,4 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 const STORAGE_KEY = 'resultados_data';
@@ -16,13 +16,65 @@ interface StoredData {
   imports: [CommonModule],
   templateUrl: './resultados.component.html',
 })
-export class ResultadosComponent implements OnInit {
+export class ResultadosComponent implements OnInit, OnDestroy {
   activeView = signal<'cargar' | 'historial'>('cargar');
   selectedDate = signal('');
   calendarOpen = signal(false);
   viewYear = signal(2026);
   viewMonth = signal(0);
   counters = signal({ black: 0, green: 0, white: 0 });
+
+  // Cronómetro
+  timerRunning = signal(false);
+  timerElapsed = signal(0);
+  private timerInterval: ReturnType<typeof setInterval> | null = null;
+
+  ngOnDestroy(): void {
+    this.clearTimer();
+  }
+
+  private clearTimer(): void {
+    if (this.timerInterval !== null) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+  }
+
+  toggleTimer(): void {
+    if (this.timerRunning()) {
+      this.pauseTimer();
+    } else {
+      this.startTimer();
+    }
+  }
+
+  private startTimer(): void {
+    this.timerRunning.set(true);
+    const start = Date.now() - this.timerElapsed();
+    this.timerInterval = setInterval(() => {
+      this.timerElapsed.set(Date.now() - start);
+    }, 10);
+  }
+
+  private pauseTimer(): void {
+    this.timerRunning.set(false);
+    this.clearTimer();
+  }
+
+  resetTimer(): void {
+    this.clearTimer();
+    this.timerRunning.set(false);
+    this.timerElapsed.set(0);
+  }
+
+  getTimerDisplay(): string {
+    const ms = this.timerElapsed();
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    const centis = Math.floor((ms % 1000) / 10);
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(centis).padStart(2, '0')}`;
+  }
 
   ngOnInit(): void {
     if (typeof window === 'undefined') return;
